@@ -1,0 +1,12 @@
+{
+  "name": "mixed_messages_seinfeld_quotes",
+  "version": "1.0.0",
+  "description": "Every time a user runs this program, they will receive a new, randomized quote from a classic Seinfeld episode, which is all of them, since every Seinfeld episode is a classic.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
