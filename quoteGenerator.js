@@ -49,5 +49,10 @@ const quotes = [
     character: "Elaine",
   },
 ];
-
+//Function for generating the random message
+const generateRandomQuote = () => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const randomQuote = quotes[randomIndex];
+    return `${randomQuote.quote} - ${randomQuote.character}`;
+  }
  
