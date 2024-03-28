@@ -55,4 +55,7 @@ const generateRandomQuote = () => {
     const randomQuote = quotes[randomIndex];
     return `${randomQuote.quote} - ${randomQuote.character}`;
   }
+
+//Log the random message to the console
+console.log(generateRandomQuote());
  
