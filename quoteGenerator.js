@@ -1,4 +1,4 @@
-// I will eventually replace this with a json or api with many more quotes
+//Manually generated quotes array
 const quotes = [
   { quote: "These pretzels are making me thirsty.", character: "Kramer" },
   { quote: "No soup for you!", character: "Soup Nazi" },
@@ -58,4 +58,8 @@ const generateRandomQuote = () => {
 
 //Log the random message to the console
 console.log(generateRandomQuote());
- 
+
+//For future consideration:
+//1. Using a json to create a much bigger quotes array
+//2. Finding a free Seinfeld quotes API and using the npm axios package to connect it to my repo
+//3. Mixing and matching parts of quotes
