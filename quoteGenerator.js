@@ -49,15 +49,41 @@ const quotes = [
     character: "Elaine",
   },
 ];
-//Function for generating the random message
-const generateRandomQuote = () => {
+
+const splitQuote = (quoteObject) => {
+  //This is a simplistic split logic; might want to consider punctuation etc... for more complex scenarios.
+  return quoteObject.quote.split(" ");
+};
+
+const generateMixedQuote = () => {
+  const selectedQuotes = [];
+  for (let i = 0; i < 3; i++) {
+    //Select 3 random quotes
     const randomIndex = Math.floor(Math.random() * quotes.length);
-    const randomQuote = quotes[randomIndex];
-    return `${randomQuote.quote} - ${randomQuote.character}`;
+    selectedQuotes.push(quotes[randomIndex]);
   }
 
-//Log the random message to the console
-console.log(generateRandomQuote());
+  const quoteParts = selectedQuotes.map(splitQuote); //Split each selected quote into parts
+  let newQuote = "";
+  for (let parts of quoteParts) {
+    const randomPartIndex = Math.floor(Math.random() * parts.length);
+    newQuote += parts[randomPartIndex] + " "; //Combine one random part from each quote
+  }
+
+  return newQuote.trim() + "."; //Add a period at the end of each frankenstein quote
+};
+
+console.log(generateMixedQuote());
+
+// //Function for generating the random message
+// const generateRandomQuote = () => {
+//     const randomIndex = Math.floor(Math.random() * quotes.length);
+//     const randomQuote = quotes[randomIndex];
+//     return `${randomQuote.quote} - ${randomQuote.character}`;
+//   }
+
+// //Log the random message to the console
+// console.log(generateRandomQuote());
 
 //For future consideration:
 //1. Using a json to create a much bigger quotes array
