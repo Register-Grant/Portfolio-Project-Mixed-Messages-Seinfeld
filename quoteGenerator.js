@@ -51,7 +51,8 @@ const quotes = [
 ];
 
 const splitQuote = (quoteObject) => {
-  //This is a simplistic split logic; might want to consider punctuation etc... for more complex scenarios.
+  const words = quote.split(' ');
+  
   return quoteObject.quote.split(" ");
 };
 
@@ -65,12 +66,15 @@ const generateMixedQuote = () => {
 
   const quoteParts = selectedQuotes.map(splitQuote); //Split each selected quote into parts
   let newQuote = "";
-  for (let parts of quoteParts) {
-    const randomPartIndex = Math.floor(Math.random() * parts.length);
-    newQuote += parts[randomPartIndex] + " "; //Combine one random part from each quote
-  }
+  quoteParts.forEach(parts => {
+    //Instead of selecting only one word from each quote, select a range of words
+    const start = Math.floor(Math.random() * (parts.length - 2)); //Ensure there's room for at least a small range
+    const end = start + Math.floor(Math.random() * (parts.length - start)) + 1; //Select an end index for the range
+    const selectedParts = parts.slice(start, Math.min(end, parts.length)).join(' '); //Join the selected range into a string
+    newQuote += selectedParts + " "; //Append selected parts to the new quote
+  })
 
-  return newQuote.trim() + "."; //Add a period at the end of each frankenstein quote
+  return newQuote.trim() + "."; //Add a period at the end of each frankenstein quote and return it
 };
 
 console.log(generateMixedQuote());
@@ -88,4 +92,4 @@ console.log(generateMixedQuote());
 //For future consideration:
 //1. Using a json to create a much bigger quotes array
 //2. Finding a free Seinfeld quotes API and using the npm axios package to connect it to my repo
-//3. Mixing and matching parts of quotes
+//3. 
