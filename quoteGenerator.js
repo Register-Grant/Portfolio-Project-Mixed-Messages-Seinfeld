@@ -4,22 +4,22 @@ const quotes = [
   { quote: "No soup for you!", character: "Soup Nazi" },
   {
     quote:
-      "What is this obsession people have with books? They put them in their houses — like they’re trophies. What do you need it for after you read it?",
+      "What is this obsession people have with books, they put them in their houses — like they’re trophies, what do you need it for after you read it?",
     character: "Jerry",
   },
   {
     quote:
-      "Can you die from an odor? I mean, like if you were locked in a vomitorium for two weeks, could you actually die from the odor?",
+      "Can you die from an odor, I mean, like if you were locked in a vomitorium for two weeks, could you actually die from the odor?",
     character: "Elaine",
   },
   {
     quote:
-      "Hey, how come people don’t have dip for dinner? Why is it only a snack, why can’t it be a meal, you know? I don’t understand stuff like that",
+      "Hey, how come people don’t have dip for dinner, why is it only a snack, why can’t it be a meal, you know, I don’t understand stuff like that",
     character: "David Puddy",
   },
   {
     quote:
-      "Look, I got a few good years left. If I want a Chip Ahoy, I’m having it.",
+      "Look, I got a few good years left, if I want a Chip Ahoy, I’m having it.",
     character: "Morty Seinfeld",
   },
   {
@@ -29,67 +29,61 @@ const quotes = [
   },
   {
     quote:
-      "I’m going to save up every rupee. Someday I will get back to America, and when I do, I will exact vengeance on this man. I cannot forget him. He haunts me. He is a very bad man. He is a very, very bad man.",
+      "I’m going to save up every rupee, someday I will get back to America, and when I do, I will exact vengeance on this man, I cannot forget him, he haunts me, he is a very bad man. He is a very, very bad man.",
     character: "Babu Bhatt",
   },
   {
     quote:
-      "Sex, that’s meaningless, I can understand that, but dinner; that’s heavy. That’s like an hour.",
+      "Sex, that’s meaningless, I can understand that, but dinner, that’s heavy, that’s like an hour.",
     character: "Jerry",
   },
   {
     quote:
-      "You dipped the chip. You took a bite. And you dipped again. That’s like putting your whole mouth right in the dip! From now on, when you take a chip — just take one dip and end it.",
+      "You dipped the chip, you took a bite and you dipped again, that’s like putting your whole mouth right in the dip, from now on, when you take a chip — just take one dip and end it.",
     character: "Timmy",
   },
   { quote: "It's not a lie if you believe it", character: "George" },
   {
     quote:
-      "That’s the bra I gave her, she’s wearing it as a top! The woman is walking around in broad daylight with nothing but a bra on. She’s a menace to society.",
+      "That’s the bra I gave her, she’s wearing it as a top, the woman is walking around in broad daylight with nothing but a bra on, she’s a menace to society.",
     character: "Elaine",
   },
 ];
 
-const splitQuote = (quoteObject) => {
-  const words = quote.split(' ');
-  
-  return quoteObject.quote.split(" ");
+const splitQuote = (quote) => {
+  const words = quote.split(" ");
+  const thirdLength = Math.ceil(words.length / 3); //Determine the size of one third of each quote
+
+  return {
+    beginning: words.slice(0, thirdLength).join(" "),
+    middle: words.slice(thirdLength, 2 * thirdLength).join(" "),
+    end: words.slice(2 * thirdLength).join(" "),
+  };
 };
 
-const generateMixedQuote = () => {
-  const selectedQuotes = [];
+const generateStructuredQuote = () => {
+  let structuredQuote = { beginning: "", middle: "", end: "" };
+
+  //Loop to select different quotes for each part
   for (let i = 0; i < 3; i++) {
     //Select 3 random quotes
     const randomIndex = Math.floor(Math.random() * quotes.length);
-    selectedQuotes.push(quotes[randomIndex]);
+    const parts = splitQuote(quotes[randomIndex].quote);
+
+    if (i === 0) structuredQuote.beginning = parts.beginning;
+    if (i === 1) structuredQuote.middle = parts.middle;
+    if (i === 2) structuredQuote.end = parts.end;
   }
 
-  const quoteParts = selectedQuotes.map(splitQuote); //Split each selected quote into parts
-  let newQuote = "";
-  quoteParts.forEach(parts => {
-    //Instead of selecting only one word from each quote, select a range of words
-    const start = Math.floor(Math.random() * (parts.length - 2)); //Ensure there's room for at least a small range
-    const end = start + Math.floor(Math.random() * (parts.length - start)) + 1; //Select an end index for the range
-    const selectedParts = parts.slice(start, Math.min(end, parts.length)).join(' '); //Join the selected range into a string
-    newQuote += selectedParts + " "; //Append selected parts to the new quote
-  })
-
-  return newQuote.trim() + "."; //Add a period at the end of each frankenstein quote and return it
+  //Combine selected parts into one string
+  return `${structuredQuote.beginning} ${structuredQuote.middle} ${structuredQuote.end}`;
 };
 
-console.log(generateMixedQuote());
+console.log(generateStructuredQuote());
 
-// //Function for generating the random message
-// const generateRandomQuote = () => {
-//     const randomIndex = Math.floor(Math.random() * quotes.length);
-//     const randomQuote = quotes[randomIndex];
-//     return `${randomQuote.quote} - ${randomQuote.character}`;
-//   }
-
-// //Log the random message to the console
-// console.log(generateRandomQuote());
 
 //For future consideration:
 //1. Using a json to create a much bigger quotes array
 //2. Finding a free Seinfeld quotes API and using the npm axios package to connect it to my repo
-//3. 
+//3. Build in logic to avoid punctuation showing up in the middle of the frankenstein quote
+//4. Use Natrual Language Processing (NLP) to generate outputs that sound like an actual sentence - you'll need to identify nouns, verbs, adjectives, etc...
